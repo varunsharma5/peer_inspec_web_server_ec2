@@ -3,7 +3,7 @@ control 'ec2-01' do
   title 'EC2 Instance compliance checks'
   desc 'EC2 Instance compliance checks'
   
-  describe aws_ec2_instance(name: 'peer.review.02-webserver-vm-centos-2') do
+  describe aws_ec2_instance(name: 'peer.review.02-webserver-vm-centos-2*') do
     it { should be_running }
   end
   describe aws_security_group(group_name: 'web_server_sg') do
