@@ -3,8 +3,10 @@ control 'ec2-01' do
   title 'EC2 Instance compliance checks'
   desc 'EC2 Instance compliance checks'
   
-  describe aws_ec2_instance(name: 'peer.review.02-webserver-vm-centos-2*') do
-    it { should be_running }
+  aws_ec2_instances.where(tags: /"Tier"=>"web"/).instance_ids.each do |id|
+    describe aws_ec2_instance(id) do
+      its('image_id') { should eq 'ami-0b1fd547bf5aae708' }
+    end
   end
   describe aws_security_group(group_name: 'web_server_sg') do
     it { should exist }
